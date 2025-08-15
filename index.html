@@ -54,6 +54,12 @@
             cursor: pointer;
             color: #4b5563;
         }
+        /* Скрываем элементы, которые не должны быть на печати */
+        @media print {
+            body > *:not(#print-content) {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-4 sm:p-8 md:p-12">
@@ -61,8 +67,8 @@
         <!-- Заголовок, фото и вводная часть -->
         <header class="mb-10 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-start relative">
             <div class="mb-4 sm:mb-0 sm:mr-6">
-                <!-- Ваше фото -->
-                <img src="uploaded:Копия IMG_6027.jpg-da66b31b-902b-421a-82db-3b0c4b62ebc7" alt="Фото Евгения Климова" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                <!-- Загрузка логотипа с GitHub. Замените URL на свой. -->
+                <img src="https://raw.githubusercontent.com/username/repository/main/logo.png" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/2C3E50?text=Logo';" alt="Логотип компании" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
             </div>
             <div>
                 <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 leading-tight mt-4 sm:mt-0">Коммерческое предложение</h1>
@@ -125,22 +131,44 @@
                 <form id="client-form" class="space-y-4">
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
-                            <label for="companyName" class="block text-sm font-medium text-gray-700">Наименование Заказчика (ИП или ООО)</label>
-                            <input type="text" id="companyName" name="companyName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <label for="docNumber" class="block text-sm font-medium text-gray-700">Номер договора</label>
+                            <input type="text" id="docNumber" name="docNumber" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                         <div class="flex-1">
-                            <label for="inn" class="block text-sm font-medium text-gray-700">ИНН Заказчика</label>
-                            <input type="text" id="inn" name="inn" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <label for="companyName" class="block text-sm font-medium text-gray-700">Наименование Заказчика (ИП или ООО)</label>
+                            <input type="text" id="companyName" name="companyName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
-                            <label for="ogrnip" class="block text-sm font-medium text-gray-700">ОГРНИП / ОГРН Заказчика</label>
+                            <label for="inn" class="block text-sm font-medium text-gray-700">ИНН Заказчика</label>
+                            <input type="text" id="inn" name="inn" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="ogrnip" class="block text-sm font-medium text-gray-700">ОГРНИП / ОГРН Заказчика <span class="text-gray-400 text-xs">(необязательно для ИП)</span></label>
                             <input type="text" id="ogrnip" name="ogrnip" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <label for="contactPerson" class="block text-sm font-medium text-gray-700">ФИО представителя</label>
                             <input type="text" id="contactPerson" name="contactPerson" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="clientRegistrationAddress" class="block text-sm font-medium text-gray-700">Адрес регистрации Заказчика</label>
+                            <input type="text" id="clientRegistrationAddress" name="clientRegistrationAddress" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="clientActualAddress" class="block text-sm font-medium text-gray-700">Фактический адрес Заказчика</label>
+                            <div class="flex items-center mt-1">
+                                <input type="text" id="clientActualAddress" name="clientActualAddress" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <div class="ml-4">
+                                    <input type="checkbox" id="sameAddress" onchange="copyAddress()" class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded">
+                                    <label for="sameAddress" class="text-sm text-gray-600">Совпадает с юридическим</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
@@ -156,15 +184,15 @@
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <label for="phone" class="block text-sm font-medium text-gray-700">Контактный телефон</label>
-                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="tel" id="phone" name="phone" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                         <div class="flex-1">
                             <label for="email" class="block text-sm font-medium text-gray-700">Электронная почта</label>
-                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                     </div>
                     <div>
-                        <button type="button" onclick="generateDocuments()" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                        <button type="button" onclick="showPrintMenu()" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
                             Сформировать пакет документов
                         </button>
                     </div>
@@ -183,7 +211,7 @@
                     <p class="text-gray-600 line-clamp-3">
                         Официальный договор, регулирующий отношения сторон, предмет и условия оказания услуг, а также порядок оплаты.
                     </p>
-                    <button onclick="openModal('contract', 'Договор об оказании услуг', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                    <button onclick="openModal('contract', 'Договор об оказании услуг')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
                         Посмотреть
                     </button>
                 </div>
@@ -193,7 +221,7 @@
                     <p class="text-gray-600 line-clamp-3">
                         Ежедневная таблица для фиксации отработанного времени, объёма переработанного фукуса и расчёта итоговой суммы к оплате.
                     </p>
-                    <button onclick="openModal('work-log', 'Журнал учёта работ', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                    <button onclick="openModal('work-log', 'Журнал учёта работ')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
                         Посмотреть
                     </button>
                 </div>
@@ -203,7 +231,7 @@
                     <p class="text-gray-600 line-clamp-3">
                         Документ, подтверждающий факт выполнения работ Исполнителем и их приём Заказчиком без взаимных претензий.
                     </p>
-                    <button onclick="openModal('act', 'Акт приёма-передачи выполненных работ', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                    <button onclick="openModal('act', 'Акт приёма-передачи выполненных работ')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
                         Посмотреть
                     </button>
                 </div>
@@ -213,7 +241,7 @@
                     <p class="text-gray-600 line-clamp-3">
                         Документ, регламентирующий условия по обеспечению Исполнителя питанием, включая минимальную калорийность и учёт индивидуальных предпочтений.
                     </p>
-                    <button onclick="openModal('meal', 'Соглашение о рационе питания', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                    <button onclick="openModal('meal', 'Соглашение о рационе питания')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
                         Посмотреть
                     </button>
                 </div>
@@ -254,6 +282,33 @@
         </section>
     </div>
 
+    <!-- Модальное окно для выбора действия с документами -->
+    <div id="print-modal" class="modal">
+        <div class="modal-content text-center">
+            <span class="close-button" onclick="closeModal('print-modal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Документы сформированы!</h2>
+            <p class="text-gray-600 mb-6">Выберите, что вы хотите сделать с документами:</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="printDocument('contract')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fas fa-print mr-2"></i>
+                    Договор
+                </button>
+                <button onclick="printDocument('work-log')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fas fa-print mr-2"></i>
+                    Журнал
+                </button>
+                <button onclick="printDocument('act')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fas fa-print mr-2"></i>
+                    Акт
+                </button>
+                <button onclick="printDocument('meal')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fas fa-print mr-2"></i>
+                    Соглашение
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Модальное окно для документов -->
     <div id="document-modal" class="modal">
         <div class="modal-content">
@@ -292,16 +347,18 @@
             passport: "11 04 260965",
             passportIssueDate: "16.08.2004",
             passportIssuer: "Вельским РОВД Архангельской обл.",
-            inn: "290705407077", // Ваш ИНН
-            address: "город Вельск Архангельской области улица Чехова дом 26 квартира 4", // Новый адрес регистрации
+            inn: "290705407077",
+            address: "город Вельск Архангельской области улица Чехова дом 26 квартира 4",
             phone: "89214962555",
             email: "eklimov84@gmail.com"
         };
         const currentYear = new Date().getFullYear();
+        
+        let clientData = {}; // Объект для хранения данных клиента после заполнения формы
 
         // Шаблоны документов
         const documentTemplates = {
-            'contract': `**ДОГОВОР №___**
+            'contract': `**ДОГОВОР №{docNumber}**
 **об оказании услуг по дроблению сухого фукуса**
 
 г. {city} «{docDay}» {docMonth} {docYear} г.
@@ -359,9 +416,11 @@
 **6. Реквизиты сторон**
 
 **Заказчик:**
-${companyName}
-ИНН: ${inn}
-ОГРНИП / ОГРН: ${ogrnip}
+{companyName}
+ИНН: {inn}
+ОГРНИП / ОГРН: {ogrnip}
+Адрес регистрации: {clientRegistrationAddress}
+Фактический адрес: {clientActualAddress}
 Телефон: {phone}
 E-mail: {email}
 
@@ -379,7 +438,7 @@ E-mail: ${evgeniyData.email}
 Исполнитель: ____________________________ /${evgeniyData.fio}/
 `,
             'work-log': `**ПРИЛОЖЕНИЕ №1**
-**к Договору №___ от «___» _________ ${currentYear} г.**
+**к Договору №{docNumber} от «___» _________ ${currentYear} г.**
 
 **ЖУРНАЛ УЧЁТА РАБОТ И РАСЧЁТОВ**
 
@@ -394,13 +453,13 @@ E-mail: ${evgeniyData.email}
 | | | | | | | | |
 | | | | | | | | |`,
             'act': `**ПРИЛОЖЕНИЕ №2**
-**к Договору №___ от «___» _________ ${currentYear} г.**
+**к Договору №{docNumber} от «___» _________ ${currentYear} г.**
 
 **АКТ ПРИЁМА-ПЕРЕДАЧИ ВЫПОЛНЕННЫХ РАБОТ**
 
 **г. {city} «{docDay}» {docMonth} {docYear} г.**
 
-Настоящий Акт составлен между Заказчиком {companyName} (${ogrnip ? 'ИП ' + ogrnip : ''}) и Исполнителем ${evgeniyData.fio}, гражданином Российской Федерации, о том, что Исполнитель с «___» __________ ${currentYear} г. по «___» __________ ${currentYear} г. выполнил следующие работы по Договору:
+Настоящий Акт составлен между Заказчиком {companyName} ({ogrnip ? 'ОГРНИП ' + ogrnip : ''}) и Исполнителем ${evgeniyData.fio}, гражданином Российской Федерации, о том, что Исполнитель с «___» __________ ${currentYear} г. по «___» __________ ${currentYear} г. выполнил следующие работы по Договору:
 
 - Дробление, упаковка, взвешивание и учёт сухого фукуса.
 - Общий объём переработанного фукуса: ____ кг.
@@ -413,7 +472,7 @@ E-mail: ${evgeniyData.email}
 **Исполнитель:** ____________________________ / ${evgeniyData.fio}
 `,
             'meal': `**ПРИЛОЖЕНИЕ №3**
-**к Договору №___ от «___» _________ ${currentYear} г.**
+**к Договору №{docNumber} от «___» _________ ${currentYear} г.**
 
 **СОГЛАШЕНИЕ О РАЦИОНЕ ПИТАНИЯ**
 
@@ -440,35 +499,124 @@ E-mail: ${evgeniyData.email}
             'meal': 'https://docs.google.com/document/d/1rb8s5eU6t4a5kgN21552bE8iRUE7aKN9xuwV0J5vAjk/edit?usp=sharing'
         };
 
+        // Функция для копирования адреса
+        function copyAddress() {
+            const registrationAddress = document.getElementById('clientRegistrationAddress');
+            const actualAddress = document.getElementById('clientActualAddress');
+            const sameAddressCheckbox = document.getElementById('sameAddress');
+
+            if (sameAddressCheckbox.checked) {
+                actualAddress.value = registrationAddress.value;
+                actualAddress.disabled = true; // Делаем поле неактивным для редактирования
+            } else {
+                actualAddress.disabled = false;
+            }
+        }
+
+        // Функция для показа меню печати после заполнения формы
+        function showPrintMenu() {
+            const form = document.getElementById('client-form');
+            if (!form.reportValidity()) {
+                return; // Остановить, если форма не валидна
+            }
+
+            // Сохраняем данные формы в объект
+            clientData = {
+                docNumber: form.docNumber.value || '1',
+                companyName: form.companyName.value,
+                inn: form.inn.value,
+                ogrnip: form.ogrnip.value,
+                contactPerson: form.contactPerson.value,
+                clientRegistrationAddress: form.clientRegistrationAddress.value,
+                clientActualAddress: form.clientActualAddress.value,
+                city: form.city.value,
+                docDate: form.docDate.value,
+                phone: form.phone.value,
+                email: form.email.value
+            };
+
+            const modal = document.getElementById('print-modal');
+            modal.classList.add('active');
+        }
+
         // Функция для открытия модального окна документа
         function openModal(id, title) {
             const modal = document.getElementById('document-modal');
             document.getElementById('modal-title').innerText = title;
 
-            // Используем шаблон, если данные не заполнены, иначе заполняем
-            const template = documentTemplates[id];
-            const form = document.getElementById('client-form');
+            // Используем сохраненные данные клиента для заполнения шаблона
             const data = {
-                city: form.city.value || '{city}',
-                docDay: new Date(form.docDate.value).getDate() || '___',
-                docMonth: new Date(form.docDate.value).toLocaleString('ru-RU', { month: 'long' }) || '_________',
-                docYear: new Date(form.docDate.value).getFullYear() || currentYear,
-                companyName: form.companyName.value || '___________',
-                inn: form.inn.value || '___________',
-                ogrnip: form.ogrnip.value || '___________',
-                contactPerson: form.contactPerson.value || 'ФИО',
-                phone: form.phone.value || '___________',
-                email: form.email.value || '___________'
+                ...clientData,
+                docDay: new Date(clientData.docDate).getDate(),
+                docMonth: new Date(clientData.docDate).toLocaleString('ru-RU', { month: 'long' }),
+                docYear: new Date(clientData.docDate).getFullYear()
             };
 
-            let filledText = template;
+            let filledText = documentTemplates[id];
             for (const key in data) {
-                filledText = filledText.replaceAll(`{${key}}`, data[key]);
+                const placeholder = `{${key}}`;
+                filledText = filledText.replaceAll(placeholder, data[key]);
             }
+
+            // Дополнительная замена для условного текста (ОГРНИП)
+            if (clientData.ogrnip.trim() === '') {
+                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', '');
+            } else {
+                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', `ОГРНИП ${clientData.ogrnip}`);
+            }
+
             document.getElementById('modal-text').innerText = filledText;
             document.getElementById('modal-link').href = docLinks[id];
             
             modal.classList.add('active');
+        }
+
+        // Функция для печати документа
+        function printDocument(id) {
+            const template = documentTemplates[id];
+            const data = {
+                ...clientData,
+                docDay: new Date(clientData.docDate).getDate(),
+                docMonth: new Date(clientData.docDate).toLocaleString('ru-RU', { month: 'long' }),
+                docYear: new Date(clientData.docDate).getFullYear()
+            };
+
+            let filledText = template;
+            for (const key in data) {
+                const placeholder = `{${key}}`;
+                filledText = filledText.replaceAll(placeholder, data[key]);
+            }
+            
+            // Дополнительная замена для условного текста (ОГРНИП)
+            if (clientData.ogrnip.trim() === '') {
+                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', '');
+            } else {
+                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', `ОГРНИП ${clientData.ogrnip}`);
+            }
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Печать документа</title>
+                    <style>
+                        body { font-family: 'Inter', sans-serif; margin: 2rem; }
+                        h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+                        pre { white-space: pre-wrap; word-wrap: break-word; }
+                        @media print {
+                            body { margin: 0; }
+                            @page { size: A4; margin: 2cm; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <pre>${filledText}</pre>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
         }
 
         // Функция для открытия модального окна принятия решения
@@ -490,21 +638,20 @@ E-mail: ${evgeniyData.email}
             modal.classList.remove('active');
         }
 
-        // Генерация документов
-        function generateDocuments() {
-            // Просто обновляем кнопки для просмотра, так как данные уже есть
-            alert("Документы сформированы!");
-        }
-
         // Закрытие модального окна по клику вне его
         window.onclick = function(event) {
             const documentModal = document.getElementById('document-modal');
             const decisionModal = document.getElementById('decision-modal');
+            const printModal = document.getElementById('print-modal');
+
             if (event.target == documentModal) {
                 closeModal('document-modal');
             }
             if (event.target == decisionModal) {
                 closeModal('decision-modal');
+            }
+            if (event.target == printModal) {
+                closeModal('print-modal');
             }
         }
     </script>
