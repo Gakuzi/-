@@ -60,6 +60,15 @@
                 display: none;
             }
         }
+        /* Стиль для печатной страницы, чтобы имитировать вид документа */
+        .print-page {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            margin: 2cm;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-4 sm:p-8 md:p-12">
@@ -67,8 +76,12 @@
         <!-- Заголовок, фото и вводная часть -->
         <header class="mb-10 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-start relative">
             <div class="mb-4 sm:mb-0 sm:mr-6">
-                <!-- Загрузка логотипа с GitHub. Замените URL на свой. -->
-                <img src="https://github.com/Gakuzi/-/blob/30b0d720fabdf9695bdc147d2e6337d82d79e6c4/%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B8%CC%86%20%D0%9A%D0%BB%D0%B8%D0%BC%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%BE%D0%BA.png" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/2C3E50?text=Logo';" alt="Логотип компании" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                <!--
+                    Для загрузки логотипа с GitHub используйте "сырую" (raw) ссылку.
+                    Пример: https://raw.githubusercontent.com/username/repository/main/logo.png
+                    Не используйте обычную ссылку на файл, которая ведет на веб-страницу GitHub.
+                -->
+                <img src="https://raw.githubusercontent.com/Gakuzi/-/725ae54a65cf1531f3cee5c9a852469f995fb10b/%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B8%CC%86%20%D0%9A%D0%BB%D0%B8%D0%BC%D0%BE%D0%B2%20%D0%B4%D0%BB%D1%8F%20%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%BE%D0%BA.png" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/2C3E50?text=Logo';" alt="Логотип компании" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
             </div>
             <div>
                 <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 leading-tight mt-4 sm:mt-0">Коммерческое предложение</h1>
@@ -136,29 +149,29 @@
                         </div>
                         <div class="flex-1">
                             <label for="companyName" class="block text-sm font-medium text-gray-700">Наименование Заказчика (ИП или ООО)</label>
-                            <input type="text" id="companyName" name="companyName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="text" id="companyName" name="companyName" value="ИП Харченко Евгений Вадимович" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <label for="inn" class="block text-sm font-medium text-gray-700">ИНН Заказчика</label>
-                            <input type="text" id="inn" name="inn" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="text" id="inn" name="inn" value="290121346711" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                         <div class="flex-1">
                             <label for="ogrnip" class="block text-sm font-medium text-gray-700">ОГРНИП / ОГРН Заказчика <span class="text-gray-400 text-xs">(необязательно для ИП)</span></label>
-                            <input type="text" id="ogrnip" name="ogrnip" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="text" id="ogrnip" name="ogrnip" value="324290000032149" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <label for="contactPerson" class="block text-sm font-medium text-gray-700">ФИО представителя</label>
-                            <input type="text" id="contactPerson" name="contactPerson" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="text" id="contactPerson" name="contactPerson" value="Харченко Евгений Вадимович" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <label for="clientRegistrationAddress" class="block text-sm font-medium text-gray-700">Адрес регистрации Заказчика</label>
-                            <input type="text" id="clientRegistrationAddress" name="clientRegistrationAddress" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="text" id="clientRegistrationAddress" name="clientRegistrationAddress" value="Архангельская обл., г.о. город Архангельск, г. Архангельск" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                         <div class="flex-1">
                             <label for="clientActualAddress" class="block text-sm font-medium text-gray-700">Фактический адрес Заказчика</label>
@@ -174,7 +187,7 @@
                     <div class="flex flex-col sm:flex-row gap-4">
                         <div class="flex-1">
                             <label for="city" class="block text-sm font-medium text-gray-700">Город заключения договора</label>
-                            <input type="text" id="city" name="city" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <input type="text" id="city" name="city" value="Архангельск" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
                         <div class="flex-1">
                             <label for="docDate" class="block text-sm font-medium text-gray-700">Дата заключения договора</label>
@@ -200,8 +213,25 @@
             </div>
         </section>
 
-        <!-- Раздел с документами -->
-        <section class="mb-12">
+        <!-- Перемещенные кнопки принятия решения -->
+        <section class="mt-12 py-8 bg-white rounded-2xl border border-gray-200 text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Готовы принять решение?</h2>
+            <p class="text-gray-600 mb-6 max-w-xl mx-auto">
+                Нажмите одну из кнопок ниже, чтобы уведомить меня о своём решении.
+            </p>
+            <!-- Flexbox для кнопок, с реверсом для мобильных и десктопов -->
+            <div class="flex flex-col-reverse sm:flex-row-reverse justify-center gap-4">
+                <button onclick="openDecisionModal('accept')" class="inline-block w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-lg">
+                    Принять предложение
+                </button>
+                <button onclick="openDecisionModal('decline')" class="inline-block w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-lg">
+                    Отклонить предложение
+                </button>
+            </div>
+        </section>
+
+        <!-- Раздел с документами (перемещен вниз) -->
+        <section class="mt-12 mb-12">
             <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-orange-400 pb-2">Шаблоны документов и приложений</h2>
             <p class="text-gray-600 mb-6">Нажмите на кнопку "Посмотреть", чтобы ознакомиться с текстом каждого документа. Для работы с документами в Google Docs, воспользуйтесь ссылкой внутри каждого окна.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -247,24 +277,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- Кнопки для принятия решения -->
-        <section class="mt-12 py-8 bg-white rounded-2xl border border-gray-200 text-center">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Готовы принять решение?</h2>
-            <p class="text-gray-600 mb-6 max-w-xl mx-auto">
-                Нажмите одну из кнопок ниже, чтобы уведомить меня о своём решении.
-            </p>
-            <!-- Flexbox для кнопок, с реверсом для мобильных и десктопов -->
-            <div class="flex flex-col-reverse sm:flex-row-reverse justify-center gap-4">
-                <button onclick="openDecisionModal('accept')" class="inline-block w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-lg">
-                    Принять предложение
-                </button>
-                <button onclick="openDecisionModal('decline')" class="inline-block w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-lg">
-                    Отклонить предложение
-                </button>
-            </div>
-        </section>
-
+        
         <!-- Контактная информация -->
         <section class="text-center mt-12 py-8 bg-gray-50 rounded-2xl border border-gray-200">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Свяжитесь со мной</h2>
@@ -289,19 +302,19 @@
             <h2 class="text-2xl font-bold mb-4">Документы сформированы!</h2>
             <p class="text-gray-600 mb-6">Выберите, что вы хотите сделать с документами:</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="printDocument('contract')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                <button onclick="printDocument('contract', 'Договор об оказании услуг')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
                     <i class="fas fa-print mr-2"></i>
                     Договор
                 </button>
-                <button onclick="printDocument('work-log')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                <button onclick="printDocument('work-log', 'Журнал учёта работ')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
                     <i class="fas fa-print mr-2"></i>
                     Журнал
                 </button>
-                <button onclick="printDocument('act')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                <button onclick="printDocument('act', 'Акт приёма-передачи выполненных работ')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
                     <i class="fas fa-print mr-2"></i>
                     Акт
                 </button>
-                <button onclick="printDocument('meal')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                <button onclick="printDocument('meal', 'Соглашение о рационе питания')" class="inline-block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
                     <i class="fas fa-print mr-2"></i>
                     Соглашение
                 </button>
@@ -363,7 +376,7 @@
 
 г. {city} «{docDay}» {docMonth} {docYear} г.
 
-Индивидуальный предприниматель {companyName}, именуемый в дальнейшем «Заказчик», с одной стороны, и Самозанятый гражданин Российской Федерации ${evgeniyData.fio}, именуемый в дальнейшем «Исполнитель», с другой стороны, заключили настоящий договор о нижеследующем:
+Индивидуальный предприниматель **{companyName}**, именуемый в дальнейшем «Заказчик», с одной стороны, и Самозанятый гражданин Российской Федерации **${evgeniyData.fio}**, именуемый в дальнейшем «Исполнитель», с другой стороны, заключили настоящий договор о нижеследующем:
 
 **1. Предмет договора**
 
@@ -416,7 +429,7 @@
 **6. Реквизиты сторон**
 
 **Заказчик:**
-{companyName}
+**{companyName}**
 ИНН: {inn}
 ОГРНИП / ОГРН: {ogrnip}
 Адрес регистрации: {clientRegistrationAddress}
@@ -425,7 +438,7 @@
 E-mail: {email}
 
 **Исполнитель:**
-ФИО: ${evgeniyData.fio}
+ФИО: **${evgeniyData.fio}**
 Паспорт: ${evgeniyData.passport}, выдан ${evgeniyData.passportIssueDate} ${evgeniyData.passportIssuer}
 Адрес регистрации: ${evgeniyData.address}
 ИНН: ${evgeniyData.inn}
@@ -434,8 +447,8 @@ E-mail: ${evgeniyData.email}
 
 **7. Подписи сторон**
 
-Заказчик: ____________________________ /{contactPerson}/
-Исполнитель: ____________________________ /${evgeniyData.fio}/
+Заказчик: ____________________________ / **{contactPerson}** /
+Исполнитель: ____________________________ / **${evgeniyData.fio}** /
 `,
             'work-log': `**ПРИЛОЖЕНИЕ №1**
 **к Договору №{docNumber} от «___» _________ ${currentYear} г.**
@@ -459,7 +472,7 @@ E-mail: ${evgeniyData.email}
 
 **г. {city} «{docDay}» {docMonth} {docYear} г.**
 
-Настоящий Акт составлен между Заказчиком {companyName} ({ogrnip ? 'ОГРНИП ' + ogrnip : ''}) и Исполнителем ${evgeniyData.fio}, гражданином Российской Федерации, о том, что Исполнитель с «___» __________ ${currentYear} г. по «___» __________ ${currentYear} г. выполнил следующие работы по Договору:
+Настоящий Акт составлен между Заказчиком **{companyName}** ({ogrnip ? 'ОГРНИП ' + ogrnip : ''}) и Исполнителем **${evgeniyData.fio}**, гражданином Российской Федерации, о том, что Исполнитель с «___» __________ ${currentYear} г. по «___» __________ ${currentYear} г. выполнил следующие работы по Договору:
 
 - Дробление, упаковка, взвешивание и учёт сухого фукуса.
 - Общий объём переработанного фукуса: ____ кг.
@@ -468,8 +481,8 @@ E-mail: ${evgeniyData.email}
 
 Стороны не имеют взаимных претензий по качеству и объёму выполненных работ.
 
-**Заказчик:** ____________________ / {contactPerson}
-**Исполнитель:** ____________________________ / ${evgeniyData.fio}
+**Заказчик:** ____________________ / **{contactPerson}**
+**Исполнитель:** ____________________________ / **${evgeniyData.fio}**
 `,
             'meal': `**ПРИЛОЖЕНИЕ №3**
 **к Договору №{docNumber} от «___» _________ ${currentYear} г.**
@@ -478,7 +491,7 @@ E-mail: ${evgeniyData.email}
 
 **г. {city} «{docDay}» {docMonth} {docYear} г.**
 
-Индивидуальный предприниматель {companyName}, именуемый в дальнейшем «Заказчик», и **${evgeniyData.fio}**, именуемый в дальнейшем «Исполнитель», составили настоящее Соглашение о следующем:
+Индивидуальный предприниматель **{companyName}**, именуемый в дальнейшем «Заказчик», и **${evgeniyData.fio}**, именуемый в дальнейшем «Исполнитель», составили настоящее Соглашение о следующем:
 
 1. Стороны договорились о том, что Заказчик обеспечивает Исполнителя трёхразовым полноценным питанием, достаточным для поддержания сил при выполнении физически тяжёлой работы.
 
@@ -486,8 +499,8 @@ E-mail: ${evgeniyData.email}
 
 3. При формировании рациона питания Заказчик обязуется учитывать индивидуальные предпочтения Исполнителя. Исполнитель не употребляет в пищу **рыбу** и **грибы**, Заказчик обязуется исключить данные продукты из рациона.
 
-**Заказчик:** ____________________ / {contactPerson}
-**Исполнитель:** ____________________________ / ${evgeniyData.fio}
+**Заказчик:** ____________________ / **{contactPerson}**
+**Исполнитель:** ____________________________ / **${evgeniyData.fio}**
 `
         };
 
@@ -553,26 +566,32 @@ E-mail: ${evgeniyData.email}
             };
 
             let filledText = documentTemplates[id];
+            
+            // Замена плейсхолдеров
             for (const key in data) {
-                const placeholder = `{${key}}`;
-                filledText = filledText.replaceAll(placeholder, data[key]);
+                const placeholder = new RegExp(`{${key}}`, 'g');
+                filledText = filledText.replace(placeholder, data[key]);
             }
 
             // Дополнительная замена для условного текста (ОГРНИП)
             if (clientData.ogrnip.trim() === '') {
-                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', '');
+                filledText = filledText.replace(/{ogrnip \? '(.*?)' : ''}/, '');
             } else {
-                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', `ОГРНИП ${clientData.ogrnip}`);
+                filledText = filledText.replace(/{ogrnip \? '(.*?)' : ''}/, `ОГРНИП ${clientData.ogrnip}`);
             }
 
-            document.getElementById('modal-text').innerText = filledText;
+            // Конвертация Markdown в HTML
+            filledText = filledText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            filledText = filledText.replace(/\n/g, '<br>');
+
+            document.getElementById('modal-text').innerHTML = filledText;
             document.getElementById('modal-link').href = docLinks[id];
             
             modal.classList.add('active');
         }
 
         // Функция для печати документа
-        function printDocument(id) {
+        function printDocument(id, title) {
             const template = documentTemplates[id];
             const data = {
                 ...clientData,
@@ -583,34 +602,36 @@ E-mail: ${evgeniyData.email}
 
             let filledText = template;
             for (const key in data) {
-                const placeholder = `{${key}}`;
-                filledText = filledText.replaceAll(placeholder, data[key]);
+                const placeholder = new RegExp(`{${key}}`, 'g');
+                filledText = filledText.replace(placeholder, data[key]);
             }
             
             // Дополнительная замена для условного текста (ОГРНИП)
             if (clientData.ogrnip.trim() === '') {
-                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', '');
+                filledText = filledText.replace(/{ogrnip \? '(.*?)' : ''}/, '');
             } else {
-                filledText = filledText.replaceAll('{ogrnip ? \'ОГРНИП \' + ogrnip : \'\'}', `ОГРНИП ${clientData.ogrnip}`);
+                filledText = filledText.replace(/{ogrnip \? '(.*?)' : ''}/, `ОГРНИП ${clientData.ogrnip}`);
             }
+
+            // Конвертация Markdown в HTML
+            filledText = filledText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            filledText = filledText.replace(/\n/g, '<br>');
 
             const printWindow = window.open('', '_blank');
             printWindow.document.write(`
                 <html>
                 <head>
-                    <title>Печать документа</title>
+                    <title>${title}</title>
                     <style>
-                        body { font-family: 'Inter', sans-serif; margin: 2rem; }
+                        body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; margin: 2cm; line-height: 1.5; }
                         h1, h2, h3, h4, h5, h6 { font-weight: bold; }
-                        pre { white-space: pre-wrap; word-wrap: break-word; }
-                        @media print {
-                            body { margin: 0; }
-                            @page { size: A4; margin: 2cm; }
-                        }
+                        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+                        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+                        th { background-color: #f2f2f2; }
                     </style>
                 </head>
                 <body>
-                    <pre>${filledText}</pre>
+                    ${filledText}
                 </body>
                 </html>
             `);
