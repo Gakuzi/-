@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коммерческое предложение</title>
+    <!-- Tailwind CSS для стилизации -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-8 md:p-12">
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 lg:p-12">
+        <!-- Заголовок, фото и вводная часть -->
+        <header class="mb-10 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-start relative">
+            <div class="mb-4 sm:mb-0 sm:mr-6">
+                <!-- Ваше фото -->
+                <img src="uploaded:Копия IMG_6027.jpg-da66b31b-902b-421a-82db-3b0c4b62ebc7" alt="Фото Евгения Климова" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
+            </div>
+            <div>
+                <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 leading-tight mt-4 sm:mt-0">Коммерческое предложение</h1>
+                <p class="mt-2 text-lg text-gray-600">
+                    Предложение услуг по дроблению и обработке сухого фукуса
+                </p>
+                <h2 class="mt-4 text-xl font-semibold text-gray-800">Климов Евгений Александрович</h2>
+                <p class="text-sm text-gray-500">Исполнитель, самозанятый</p>
+            </div>
+        </header>
+
+        <!-- Раздел с основным текстом предложения -->
+        <section class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-orange-400 pb-2 text-center">Основное предложение</h2>
+            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 shadow-md">
+                <p class="text-gray-700 text-base leading-relaxed">
+                    Привет! Я тут прикинул по твоим же цифрам. Ты говорил, что максимум на троих дробили около 2 тонн сухого в день. Если взять это за ориентир и ставку 10 рублей за кг, то это выходит примерно 20 000 в день на троих, то есть около 6-7 тысяч на человека при нормальной работе.
+                </p>
+                <p class="text-gray-700 text-base leading-relaxed mt-4">
+                    Но я посмотрел погоду на ближайшие 10 дней, есть дожди и ливни, значит сушка будет тормозиться и часть дней можем простоять. Если всё сложить, то в реальности за 10 дней вместо 65-70 тысяч может выйти ближе к 45-50 тысяч, даже если я работаю без остановки.
+                </p>
+                <p class="text-gray-700 text-base leading-relaxed mt-4 font-bold">
+                    Чтобы мы оба были уверены в результате, предлагаю так:
+                </p>
+            </div>
+        </section>
+
+        <!-- Раздел ключевых условий -->
+        <section class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-orange-400 pb-2 text-center">Детализация условий</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Карточка с условиями оплаты -->
+                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 shadow-md transition-transform transform hover:scale-105">
+                    <h3 class="font-bold text-xl text-blue-800 mb-2">Оплата и расчёты</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">Минимальная оплата:</span> 45 000 ₽ за 10 рабочих дней (≈4500 ₽ в день с учётом погоды).</li>
+                        <li><span class="font-bold">Расчёт по объёму:</span> 10 ₽ за 1 кг переработанного фукуса, если объём будет больше минималки.</li>
+                        <li><span class="font-bold">Итоговая оплата:</span> Выбирается наибольшая из двух сумм за каждый рабочий день.</li>
+                        <li><span class="font-bold">Форма оплаты:</span> Наличными средствами по завершению работ.</li>
+                    </ul>
+                </div>
+                <!-- Карточка с рабочим графиком -->
+                <div class="bg-green-50 border border-green-200 rounded-2xl p-6 shadow-md transition-transform transform hover:scale-105">
+                    <h3 class="font-bold text-xl text-green-800 mb-2">График и условия</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-bold">Рабочий день:</span> Ориентировочно 8 часов.</li>
+                        <li><span class="font-bold">Фиксация времени:</span> Начало и окончание фиксируются ежедневно.</li>
+                        <li><span class="font-bold">Проживание и питание:</span> Обеспечиваются Заказчиком.</li>
+                        <li><span class="font-bold">Особый рацион:</span> Исключение рыбы и грибов.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма для заполнения данных -->
+        <section class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-orange-400 pb-2 text-center">Подготовка документов</h2>
+            <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 shadow-md">
+                <p class="text-gray-600 mb-6">Пожалуйста, введите данные заказчика, чтобы сформировать полный пакет документов.</p>
+                <form id="client-form" class="space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="companyName" class="block text-sm font-medium text-gray-700">Наименование Заказчика (ИП или ООО)</label>
+                            <input type="text" id="companyName" name="companyName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="inn" class="block text-sm font-medium text-gray-700">ИНН Заказчика</label>
+                            <input type="text" id="inn" name="inn" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="ogrnip" class="block text-sm font-medium text-gray-700">ОГРНИП / ОГРН Заказчика</label>
+                            <input type="text" id="ogrnip" name="ogrnip" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="contactPerson" class="block text-sm font-medium text-gray-700">ФИО представителя</label>
+                            <input type="text" id="contactPerson" name="contactPerson" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="city" class="block text-sm font-medium text-gray-700">Город заключения договора</label>
+                            <input type="text" id="city" name="city" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="docDate" class="block text-sm font-medium text-gray-700">Дата заключения договора</label>
+                            <input type="date" id="docDate" name="docDate" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Контактный телефон</label>
+                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Электронная почта</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" onclick="generateDocuments()" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                            Сформировать пакет документов
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Раздел с документами -->
+        <section class="mb-12">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-orange-400 pb-2">Шаблоны документов и приложений</h2>
+            <p class="text-gray-600 mb-6">Нажмите на кнопку "Посмотреть", чтобы ознакомиться с текстом каждого документа. Для работы с документами в Google Docs, воспользуйтесь ссылкой внутри каждого окна.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Документ: Договор -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Договор об оказании услуг</h3>
+                    <p class="text-gray-600 line-clamp-3">
+                        Официальный договор, регулирующий отношения сторон, предмет и условия оказания услуг, а также порядок оплаты.
+                    </p>
+                    <button onclick="openModal('contract', 'Договор об оказании услуг', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                        Посмотреть
+                    </button>
+                </div>
+                <!-- Документ: Журнал учёта -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Журнал учёта работ</h3>
+                    <p class="text-gray-600 line-clamp-3">
+                        Ежедневная таблица для фиксации отработанного времени, объёма переработанного фукуса и расчёта итоговой суммы к оплате.
+                    </p>
+                    <button onclick="openModal('work-log', 'Журнал учёта работ', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                        Посмотреть
+                    </button>
+                </div>
+                <!-- Документ: Акт приёма-передачи -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Акт приёма-передачи</h3>
+                    <p class="text-gray-600 line-clamp-3">
+                        Документ, подтверждающий факт выполнения работ Исполнителем и их приём Заказчиком без взаимных претензий.
+                    </p>
+                    <button onclick="openModal('act', 'Акт приёма-передачи выполненных работ', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                        Посмотреть
+                    </button>
+                </div>
+                <!-- Документ: Соглашение о питании -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Соглашение о питании</h3>
+                    <p class="text-gray-600 line-clamp-3">
+                        Документ, регламентирующий условия по обеспечению Исполнителя питанием, включая минимальную калорийность и учёт индивидуальных предпочтений.
+                    </p>
+                    <button onclick="openModal('meal', 'Соглашение о рационе питания', 'template')" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+                        Посмотреть
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кнопки для принятия решения -->
+        <section class="mt-12 py-8 bg-white rounded-2xl border border-gray-200 text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Готовы принять решение?</h2>
+            <p class="text-gray-600 mb-6 max-w-xl mx-auto">
+                Нажмите одну из кнопок ниже, чтобы уведомить меня о своём решении.
+            </p>
+            <!-- Flexbox для кнопок, с реверсом для мобильных и десктопов -->
+            <div class="flex flex-col-reverse sm:flex-row-reverse justify-center gap-4">
+                <button onclick="openDecisionModal('accept')" class="inline-block w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-lg">
+                    Принять предложение
+                </button>
+                <button onclick="openDecisionModal('decline')" class="inline-block w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-lg">
+                    Отклонить предложение
+                </button>
+            </div>
+        </section>
+
+        <!-- Контактная информация -->
+        <section class="text-center mt-12 py-8 bg-gray-50 rounded-2xl border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Свяжитесь со мной</h2>
+            <p class="text-gray-600 mb-6">Готов ответить на все ваши вопросы и обсудить условия сотрудничества.</p>
+            <div class="flex flex-row gap-4 justify-center">
+                <a href="https://t.me/eklimov" target="_blank" class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fab fa-telegram-plane text-2xl mr-2"></i>
+                    Telegram
+                </a>
+                <a href="https://wa.me/79214962555" target="_blank" class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fab fa-whatsapp text-2xl mr-2"></i>
+                    WhatsApp
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Модальное окно для документов -->
+    <div id="document-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('document-modal')">&times;</span>
+            <h2 id="modal-title" class="text-2xl font-bold mb-4"></h2>
+            <div id="modal-text" class="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed max-h-[65vh] overflow-y-auto pr-2"></div>
+            <a id="modal-link" href="#" target="_blank" class="block text-center mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition-colors shadow-md">
+                Открыть в Google Docs
+            </a>
+        </div>
+    </div>
+
+    <!-- Модальное окно для выбора мессенджера -->
+    <div id="decision-modal" class="modal">
+        <div class="modal-content text-center">
+            <span class="close-button" onclick="closeModal('decision-modal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Уведомить о решении</h2>
+            <p class="text-gray-600 mb-6">Выбери, куда отправить сообщение о твоём решении:</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a id="telegram-decision-btn" href="#" target="_blank" class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fab fa-telegram-plane text-2xl mr-2"></i>
+                    Telegram
+                </a>
+                <a id="whatsapp-decision-btn" href="#" target="_blank" class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg">
+                    <i class="fab fa-whatsapp text-2xl mr-2"></i>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные Евгения Климова, обновленные с учетом новых данных
+        const evgeniyData = {
+            fio: "Климов Евгений Александрович",
+            passport: "11 04 260965",
+            passportIssueDate: "16.08.2004",
+            passportIssuer: "Вельским РОВД Архангельской обл.",
+            inn: "290705407077", // Ваш ИНН
+            address: "город Вельск Архангельской области улица Чехова дом 26 квартира 4", // Новый адрес регистрации
+            phone: "89214962555",
+            email: "eklimov84@gmail.com"
+        };
+        const currentYear = new Date().getFullYear();
+
+        // Шаблоны документов
+        const documentTemplates = {
+            'contract': `**ДОГОВОР №___**
+**об оказании услуг по дроблению сухого фукуса**
+
+г. {city} «{docDay}» {docMonth} {docYear} г.
+
+Индивидуальный предприниматель {companyName}, именуемый в дальнейшем «Заказчик», с одной стороны, и Самозанятый гражданин Российской Федерации ${evgeniyData.fio}, именуемый в дальнейшем «Исполнитель», с другой стороны, заключили настоящий договор о нижеследующем:
+
+**1. Предмет договора**
+
+1.1. Исполнитель обязуется лично оказывать Заказчику услуги по дроблению, упаковке, взвешиванию и учёту сухого фукуса, предоставленного Заказчиком, в соответствии с условиями настоящего договора.
+
+1.2. Услуги оказываются на территории, определённой Заказчиком, в деревне Лямца, Архангельская область, либо в ином согласованном месте.
+
+1.3. Исполнитель не участвует в сборе, сушке, транспортировке или подготовке сырья.
+
+**2. Условия оказания услуг**
+
+2.1. Рабочий день Исполнителя составляет ориентировочно 8 часов. В случае переработки, продолжительность рабочего дня может превышать 8 часов.
+
+2.2. Время начала и окончания рабочего дня фиксируется обеими сторонами ежедневно.
+
+2.3. За каждый рабочий день Заказчик производит оплату по следующему принципу:
+- рассчитывается почасовая ставка, исходя из 4 500 рублей за 8 часов работы (то есть 562,50 руб. за час);
+- рассчитывается стоимость фактически отработанных часов;
+- рассчитывается стоимость переработанного объёма сухого фукуса по ставке 10 рублей за 1 кг;
+- оплата производится по наибольшей из двух сумм — либо по времени, либо по объёму.
+
+2.4. Все объёмы сухого фукуса, переданные Исполнителю, фиксируются в журнале или таблице, доступной обеим сторонам.
+
+2.5. Общая продолжительность оказания услуг может составлять менее или более 10 рабочих дней, в зависимости от погодных условий, доступности сырья и иных обстоятельств.
+
+2.6. Проживание и питание Исполнителя на период оказания услуг обеспечиваются Заказчиком за его счёт. Условия проживания и рацион питания согласовываются сторонами заранее.
+
+**3. Стоимость и порядок расчётов**
+
+3.1. Заказчик оплачивает услуги Исполнителя:
+- по времени: исходя из почасовой ставки 562,50 руб. за час;
+- по объёму: 10 рублей за 1 кг переработанного сухого фукуса;
+- оплата производится по наибольшей из двух сумм за каждый рабочий день.
+
+3.2. Оплата производится наличными средствами в день завершения работы либо по итогам всего периода, по согласованию сторон.
+
+3.3. Исполнитель самостоятельно уплачивает налог на профессиональный доход (НПД) в размере 6% и обязуется предоставить чек через приложение «Мой налог» или аналогичный сервис.
+
+**4. Ответственность сторон**
+
+4.1. Исполнитель обязуется выполнять работу лично, качественно и в срок.
+4.2. Заказчик обязуется своевременно предоставлять сырьё, оборудование и расходные материалы, необходимые для выполнения работ.
+4.3. В случае возникновения форс-мажорных обстоятельств (непредвиденные погодные условия, отсутствие сырья), стороны договариваются о переносе сроков или корректировке условий оплаты.
+
+**5. Срок действия договора**
+
+5.1. Настоящий договор вступает в силу с момента подписания и действует до полного исполнения обязательств сторонами.
+5.2. По взаимному согласию сторон срок оказания услуг может быть продлён или сокращён.
+
+**6. Реквизиты сторон**
+
+**Заказчик:**
+${companyName}
+ИНН: ${inn}
+ОГРНИП / ОГРН: ${ogrnip}
+Телефон: {phone}
+E-mail: {email}
+
+**Исполнитель:**
+ФИО: ${evgeniyData.fio}
+Паспорт: ${evgeniyData.passport}, выдан ${evgeniyData.passportIssueDate} ${evgeniyData.passportIssuer}
+Адрес регистрации: ${evgeniyData.address}
+ИНН: ${evgeniyData.inn}
+Телефон: ${evgeniyData.phone}
+E-mail: ${evgeniyData.email}
+
+**7. Подписи сторон**
+
+Заказчик: ____________________________ /{contactPerson}/
+Исполнитель: ____________________________ /${evgeniyData.fio}/
+`,
+            'work-log': `**ПРИЛОЖЕНИЕ №1**
+**к Договору №___ от «___» _________ ${currentYear} г.**
+
+**ЖУРНАЛ УЧЁТА РАБОТ И РАСЧЁТОВ**
+
+| **Дата** | **Время начала** | **Время окончания** | **Отработано часов** | **Объём (кг)** | **Сумма по времени (руб.)** | **Сумма по объёму (руб.)** | **Итог (руб.)** |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |
+| | | | | | | | |`,
+            'act': `**ПРИЛОЖЕНИЕ №2**
+**к Договору №___ от «___» _________ ${currentYear} г.**
+
+**АКТ ПРИЁМА-ПЕРЕДАЧИ ВЫПОЛНЕННЫХ РАБОТ**
+
+**г. {city} «{docDay}» {docMonth} {docYear} г.**
+
+Настоящий Акт составлен между Заказчиком {companyName} (${ogrnip ? 'ИП ' + ogrnip : ''}) и Исполнителем ${evgeniyData.fio}, гражданином Российской Федерации, о том, что Исполнитель с «___» __________ ${currentYear} г. по «___» __________ ${currentYear} г. выполнил следующие работы по Договору:
+
+- Дробление, упаковка, взвешивание и учёт сухого фукуса.
+- Общий объём переработанного фукуса: ____ кг.
+- Общее количество отработанных часов: ____.
+- Общая стоимость услуг: ____ руб. (___________ рублей).
+
+Стороны не имеют взаимных претензий по качеству и объёму выполненных работ.
+
+**Заказчик:** ____________________ / {contactPerson}
+**Исполнитель:** ____________________________ / ${evgeniyData.fio}
+`,
+            'meal': `**ПРИЛОЖЕНИЕ №3**
+**к Договору №___ от «___» _________ ${currentYear} г.**
+
+**СОГЛАШЕНИЕ О РАЦИОНЕ ПИТАНИЯ**
+
+**г. {city} «{docDay}» {docMonth} {docYear} г.**
+
+Индивидуальный предприниматель {companyName}, именуемый в дальнейшем «Заказчик», и **${evgeniyData.fio}**, именуемый в дальнейшем «Исполнитель», составили настоящее Соглашение о следующем:
+
+1. Стороны договорились о том, что Заказчик обеспечивает Исполнителя трёхразовым полноценным питанием, достаточным для поддержания сил при выполнении физически тяжёлой работы.
+
+2. Среднесуточная калорийность рациона должна составлять **не менее 2500 ккал**.
+
+3. При формировании рациона питания Заказчик обязуется учитывать индивидуальные предпочтения Исполнителя. Исполнитель не употребляет в пищу **рыбу** и **грибы**, Заказчик обязуется исключить данные продукты из рациона.
+
+**Заказчик:** ____________________ / {contactPerson}
+**Исполнитель:** ____________________________ / ${evgeniyData.fio}
+`
+        };
+
+        // Ссылки на шаблоны в Google Docs
+        const docLinks = {
+            'contract': 'https://docs.google.com/document/d/1qPQC3unPQyZAnEHDYCeIKDqkBHdOzM6yZua7Lcy7hkc/edit?usp=sharing',
+            'work-log': 'https://docs.google.com/document/d/1CpbcU9KzKjIIz79XOuA_PritvlBdEOnOpcsufNjyKfs/edit?usp=sharing',
+            'act': 'https://docs.google.com/document/d/1UiJawEU7ZjER6ZsTzD_GCMjGUjHRqha36Mdtuyreftg/edit?usp=sharing',
+            'meal': 'https://docs.google.com/document/d/1rb8s5eU6t4a5kgN21552bE8iRUE7aKN9xuwV0J5vAjk/edit?usp=sharing'
+        };
+
+        // Функция для открытия модального окна документа
+        function openModal(id, title) {
+            const modal = document.getElementById('document-modal');
+            document.getElementById('modal-title').innerText = title;
+
+            // Используем шаблон, если данные не заполнены, иначе заполняем
+            const template = documentTemplates[id];
+            const form = document.getElementById('client-form');
+            const data = {
+                city: form.city.value || '{city}',
+                docDay: new Date(form.docDate.value).getDate() || '___',
+                docMonth: new Date(form.docDate.value).toLocaleString('ru-RU', { month: 'long' }) || '_________',
+                docYear: new Date(form.docDate.value).getFullYear() || currentYear,
+                companyName: form.companyName.value || '___________',
+                inn: form.inn.value || '___________',
+                ogrnip: form.ogrnip.value || '___________',
+                contactPerson: form.contactPerson.value || 'ФИО',
+                phone: form.phone.value || '___________',
+                email: form.email.value || '___________'
+            };
+
+            let filledText = template;
+            for (const key in data) {
+                filledText = filledText.replaceAll(`{${key}}`, data[key]);
+            }
+            document.getElementById('modal-text').innerText = filledText;
+            document.getElementById('modal-link').href = docLinks[id];
+            
+            modal.classList.add('active');
+        }
+
+        // Функция для открытия модального окна принятия решения
+        function openDecisionModal(type) {
+            const messageAccept = encodeURIComponent("Предложение по дроблению фукуса принято. Прошу связаться со мной.");
+            const messageDecline = encodeURIComponent("Предложение по дроблению фукуса отклонено.");
+            let message = type === 'accept' ? messageAccept : messageDecline;
+
+            document.getElementById('telegram-decision-btn').href = `https://t.me/eklimov?text=${message}`;
+            document.getElementById('whatsapp-decision-btn').href = `https://wa.me/79214962555?text=${message}`;
+
+            const modal = document.getElementById('decision-modal');
+            modal.classList.add('active');
+        }
+
+        // Функция для закрытия модальных окон
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+        }
+
+        // Генерация документов
+        function generateDocuments() {
+            // Просто обновляем кнопки для просмотра, так как данные уже есть
+            alert("Документы сформированы!");
+        }
+
+        // Закрытие модального окна по клику вне его
+        window.onclick = function(event) {
+            const documentModal = document.getElementById('document-modal');
+            const decisionModal = document.getElementById('decision-modal');
+            if (event.target == documentModal) {
+                closeModal('document-modal');
+            }
+            if (event.target == decisionModal) {
+                closeModal('decision-modal');
+            }
+        }
+    </script>
+</body>
+</html>
